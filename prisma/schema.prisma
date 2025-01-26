@@ -14,10 +14,32 @@ model User {
   name              String?
   isVerified        Boolean  @default(false) @map("is_verified")
   verificationToken String?  @map("verification_token")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  role              Role     @default(USER)
+  profile           Profile? @relation(fields: [profileId], references: [id])
+  profileId         String?  @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+enum Role {
+  ADMIN
+  USER
+  EMPLOYES
+}
+
+model Profile {
+  id      String @id @unique @default(cuid())
+  user    User?  @relation
+  address String
+  phone   String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("profiles")
 }
 
 model Product {
