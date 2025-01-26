@@ -8,9 +8,10 @@ import jwt from "jsonwebtoken";
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
-    console.log({ email, password });
 
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
     if (!user) {
       return NextResponse.json(
         { error: "Неверный email или пароль" },
@@ -34,10 +35,10 @@ export async function POST(req: Request) {
     }
 
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET as string,
       {
-        expiresIn: "1h",
+        expiresIn: "30d",
       }
     );
 
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
-      maxAge: 1000 * 60 * 60,
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     });
 
     return NextResponse.json({

@@ -15,3 +15,14 @@ export type UserAuthResponse = {
   user: UserType;
   token: string;
 };
+export type DecodedToken = {
+  userId: string;
+  email: string;
+  role: Role;
+};
+
+enum Role {
+  ADMIN,
+  USER,
+  EMPLOYES,
+}
