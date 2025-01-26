@@ -1,0 +1,12 @@
+.wrapper {
+  @apply bg-blue-200 h-lvh flex justify-center items-center;
+}
+.form {
+  @apply min-w-[320px] bg-blue-500 text-white p-4 rounded-md flex flex-col gap-4 text-lg;
+}
+.header {
+  @apply flex justify-between;
+}
+.toggle {
+  @apply cursor-pointer inline-block px-2 rounded-md  bg-purple-700;
+}
