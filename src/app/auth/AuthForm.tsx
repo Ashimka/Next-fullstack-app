@@ -1,8 +1,11 @@
 "use client";
 
-import Button from "@/components/ui/Button";
+import { useState } from "react";
 import { useAuthForm } from "@/hooks/useAuth";
-import React, { useState } from "react";
+
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+
 import styles from "./Auth.module.css";
 
 const AuthForm = () => {
@@ -15,21 +18,21 @@ const AuthForm = () => {
       <div className={styles.header}>
         <h2>{isReq ? "Регистрация" : "Вход"} </h2>
       </div>
-      <div>
-        <input
+      <>
+        <Input
           className="text-black w-full p-1 text-lg"
           type="email"
           id="email"
           placeholder="email"
-          {...register("email", { required: "Полуе Email не заполнено" })}
+          {...register("email", { required: "Поле Email не заполнено" })}
         />
         {form.formState.errors.email && (
           <p>{form.formState.errors.email.message}</p>
         )}
-      </div>
+      </>
       {isReq && (
-        <div>
-          <input
+        <>
+          <Input
             className="text-black w-full p-1 text-lg"
             type="text"
             id="text"
@@ -39,11 +42,11 @@ const AuthForm = () => {
           {form.formState.errors.name && (
             <p>{form.formState.errors.name.message}</p>
           )}
-        </div>
+        </>
       )}
 
-      <div>
-        <input
+      <>
+        <Input
           className="text-black w-full p-1 text-lg"
           type="password"
           id="password"
@@ -53,22 +56,28 @@ const AuthForm = () => {
         {form.formState.errors.password && (
           <p>{form.formState.errors.password.message}</p>
         )}
-      </div>
+      </>
 
       <Button type="submit" variant="primary" loading={isPending}>
-        {isPending ? "Loading..." : isReq ? "Зарегистрировать" : "Войти"}
+        {isPending ? "Loading..." : isReq ? "Регистрация" : "Войти"}
       </Button>
 
-      <div>
-        <p>
+      <>
+        <p className={styles.footer}>
           {isReq ? "Есть аккаунт " : "Нет аккаунта "}
-          <span className={styles.toggle} onClick={() => setIsReq(!isReq)}>
-            {isReq ? "вход" : "зарегистрируйтесь"}
+          <span
+            className={styles.toggle}
+            onClick={() => {
+              setIsReq(!isReq);
+              form.reset();
+            }}
+          >
+            {isReq ? "Вход" : "Регистрация"}
           </span>
         </p>
-      </div>
+      </>
 
-      {errorAuth && <p>{errorAuth}</p>}
+      {errorAuth && <p className={styles.error}>{errorAuth}</p>}
     </form>
   );
 };

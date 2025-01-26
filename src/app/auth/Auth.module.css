@@ -2,11 +2,17 @@
   @apply bg-blue-200 h-lvh flex justify-center items-center;
 }
 .form {
-  @apply min-w-[320px] bg-blue-500 text-white p-4 rounded-md flex flex-col gap-4 text-lg;
+  @apply min-w-[320px] bg-blue-400 text-white p-4 rounded-md flex flex-col gap-4 text-lg;
 }
 .header {
   @apply flex justify-between;
 }
+.footer {
+  @apply text-center;
+}
 .toggle {
-  @apply cursor-pointer inline-block px-2 rounded-md  bg-purple-700;
+  @apply cursor-pointer font-semibold text-fuchsia-300;
+}
+.error {
+  @apply text-red-700 text-xl;
 }
