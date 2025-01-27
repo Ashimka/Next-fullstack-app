@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { setCookie } from "cookies-next/server";
 import prisma from "@/lib/prisma";
 import { verifyPassword } from "@/lib/service/auth";
-import jwt from "jsonwebtoken";
+import { createTokens } from "@/lib/service/token.service";
 
 export async function POST(req: Request) {
   try {
@@ -34,27 +34,25 @@ export async function POST(req: Request) {
       );
     }
 
-    const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET as string,
-      {
-        expiresIn: "30d",
-      }
-    );
+    const { accessToken, refreshToken } = createTokens({
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+    });
 
-    await setCookie("RF", token, {
+    await setCookie("RF", refreshToken, {
       cookies,
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 24 * 60 * 60 * 30,
     });
 
     return NextResponse.json({
       id: user.id,
       email: user.email,
       name: user.name,
-      token,
+      token: accessToken,
     });
   } catch (error) {
     console.error("Error in login:", error);

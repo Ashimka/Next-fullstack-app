@@ -1,3 +1,5 @@
+import { Role } from "@prisma/client";
+
 export type UserType = {
   id: string;
   name?: string;
@@ -20,9 +22,3 @@ export type DecodedToken = {
   email: string;
   role: Role;
 };
-
-enum Role {
-  ADMIN,
-  USER,
-  EMPLOYES,
-}
