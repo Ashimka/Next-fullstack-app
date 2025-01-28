@@ -20,7 +20,7 @@ export function useAuthForm(isReq: boolean) {
     mutationFn: (data: UserAuthForm) =>
       authService.loginOrRegister(isReq ? "register" : "login", data),
     onSuccess() {
-      router.push(isReq ? "/profile" : "/");
+      router.push("/profile");
       form.reset();
     },
     onError(error: Error | AxiosError) {
