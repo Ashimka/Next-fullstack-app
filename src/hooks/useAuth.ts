@@ -1,5 +1,5 @@
 "use client";
-import { authService } from "@/services/auth.service";
+import { authService } from "@/services/auth/auth.service";
 import { UserAuthForm } from "@/types/user.type";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
