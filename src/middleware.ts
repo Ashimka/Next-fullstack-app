@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = req.cookies.get("Token")?.value;
+  const token = req.cookies.get("RF")?.value;
 
   if (token === undefined) {
     return NextResponse.redirect(new URL("/auth", req.url));

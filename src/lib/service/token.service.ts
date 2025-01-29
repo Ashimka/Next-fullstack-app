@@ -9,15 +9,15 @@ export const createTokens = (user: DecodedToken) => {
       expiresIn: "30d",
     }
   );
-  const accessToken = jwt.sign(
+  const token = jwt.sign(
     { userId: user.userId, email: user.email, role: user.role },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "30m",
+      expiresIn: "20m",
     }
   );
 
-  return { refreshToken, accessToken };
+  return { refreshToken, token };
 };
 
 export const validateToken = (token: string): DecodedToken | null => {

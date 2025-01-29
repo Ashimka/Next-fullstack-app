@@ -16,5 +16,18 @@ class AuthService {
 
     return response;
   }
+
+  async getNewToken() {
+    const response = await axiosPublic<UserAuthResponse>({
+      url: `/auth/refresh`,
+      method: "GET",
+    });
+
+    if (response.data.token) {
+      saveTokenStorage(response.data.token);
+    }
+
+    return response;
+  }
 }
 export const authService = new AuthService();

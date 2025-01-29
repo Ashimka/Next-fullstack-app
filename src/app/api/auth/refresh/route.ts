@@ -5,21 +5,21 @@ import { createTokens, validateToken } from "@/lib/service/token.service";
 
 export async function GET() {
   try {
-    const token = await getCookie("RF", { cookies });
+    const refreshToken = await getCookie("RF", { cookies });
 
-    if (!token) {
+    if (!refreshToken) {
       return NextResponse.json({ message: "Не авторизован" }, { status: 401 });
     }
 
-    const isValidToken = validateToken(token);
+    const isValidToken = validateToken(refreshToken);
 
     if (!isValidToken) {
       return NextResponse.json({ message: "Не авторизован" }, { status: 401 });
     }
 
-    const { accessToken } = createTokens(isValidToken);
+    const { token } = createTokens(isValidToken);
 
-    return NextResponse.json(accessToken);
+    return NextResponse.json({ token });
   } catch (error) {
     console.error("Token verification failed:", error);
     NextResponse.json({ message: "Unauthorized" }, { status: 401 });

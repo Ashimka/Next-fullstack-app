@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { accessToken, refreshToken } = createTokens({
+    const { token, refreshToken } = createTokens({
       userId: user.id,
       email: user.email,
       role: user.role,
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       id: user.id,
       email: user.email,
       name: user.name,
-      token: accessToken,
+      token,
     });
   } catch (error) {
     console.error("Error in login:", error);
