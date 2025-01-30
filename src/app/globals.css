@@ -17,16 +17,28 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 .container {
   margin: 0 auto;
   max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
 }
 .main {
   flex: 1 1 auto;
   background: #465779;
   color: white;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  animation: rotate 2s linear infinite;
 }
