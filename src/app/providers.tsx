@@ -8,6 +8,7 @@ const Providers = ({ children }: PropsWithChildren) => {
       defaultOptions: {
         queries: {
           refetchOnWindowFocus: false,
+          retry: false,
         },
       },
     })

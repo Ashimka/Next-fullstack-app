@@ -1,5 +1,8 @@
-import { saveTokenStorage } from "@/services/auth/auth-token.service";
-import { axiosPublic } from "@/config/api.config";
+import {
+  removeTokenFromStorage,
+  saveTokenStorage,
+} from "@/services/auth/auth-token.service";
+import { axiosPublic, axiosWithAuth } from "@/config/api.config";
 import { UserAuthForm, UserAuthResponse } from "@/types/user.type";
 
 class AuthService {
@@ -28,6 +31,19 @@ class AuthService {
     }
 
     return response;
+  }
+
+  async logout() {
+    const { data } = await axiosWithAuth({
+      url: "/auth/logout",
+      method: "POST",
+    });
+
+    if (data) {
+      removeTokenFromStorage();
+    }
+
+    return data;
   }
 }
 export const authService = new AuthService();

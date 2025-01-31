@@ -1,0 +1,10 @@
+.wrapper {
+  @apply px-5 mt-5;
+}
+
+.header {
+  @apply flex justify-between;
+  > button {
+    @apply px-2 py-1;
+  }
+}

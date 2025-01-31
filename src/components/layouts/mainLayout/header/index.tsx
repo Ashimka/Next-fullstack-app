@@ -7,6 +7,7 @@ import { useGetOneUser } from "@/hooks/users/useOneUser";
 
 const Header = () => {
   const { isLoading, oneUser } = useGetOneUser();
+
   return (
     <header className={styles.header}>
       <div className="container">
@@ -38,11 +39,11 @@ const Header = () => {
             </Link>
             {oneUser ? (
               <Link href="/profile">
-                {isLoading ? <LoaderIcon className="loading" /> : <User />}
+                {isLoading ? <LoaderIcon className="loading-animate" /> : <User />}
               </Link>
             ) : (
               <Link href="/auth">
-                {isLoading ? <LoaderIcon className="loading" /> : <LogIn />}
+                {isLoading ? <LoaderIcon className="loading-animate" /> : <LogIn />}
               </Link>
             )}
           </div>

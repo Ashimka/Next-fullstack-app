@@ -5,7 +5,9 @@ const MainLayout = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <>
       <Header />
-      <main className="main">{children}</main>
+      <main className="main">
+        <div className="container">{children}</div>
+      </main>
       <footer className="bg-[#99b3c6]">
         <div className="container">Footer</div>
       </footer>

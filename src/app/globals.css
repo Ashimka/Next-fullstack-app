@@ -39,6 +39,6 @@ body {
   }
 }
 
-.loading {
+.loading-animate {
   animation: rotate 2s linear infinite;
 }

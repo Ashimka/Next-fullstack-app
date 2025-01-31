@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useGetOneUser = () => {
   const { data: oneUser, isLoading } = useQuery({
-    queryKey: ["get one user"],
+    queryKey: ["get user profile"],
     queryFn: () => userService.getOneUser(),
   });
 
