@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { setCookie } from "cookies-next/server";
+
 import prisma from "@/lib/prisma";
 import { verifyPassword } from "@/lib/service/auth";
 import { createTokens } from "@/lib/service/token.service";
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const isPasswordValid = await verifyPassword(password, user.password);
+    const isPasswordValid = await verifyPassword(password, user.password!);
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: "Неверный email или пароль" },

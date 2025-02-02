@@ -1,11 +1,13 @@
 "use client";
-import { authService } from "@/services/auth/auth.service";
-import { UserAuthForm } from "@/types/user.type";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+
+import { authService } from "@/services/auth/auth.service";
+
+import { UserAuthForm } from "@/types/user.type";
 
 export function useAuthForm(isReq: boolean) {
   const [errorAuth, setErrAuth] = useState("");

@@ -7,11 +7,16 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 
 import styles from "./Auth.module.css";
+import Social from "./Social";
 
 const AuthForm = () => {
   const [isReq, setIsReq] = useState(false);
   const { onSubmit, form, isPending, errorAuth } = useAuthForm(isReq);
-  const { register, handleSubmit } = form;
+  const { register, watch, handleSubmit } = form;
+
+  const watchFields = watch(["email", "name", "password"]);
+  const isDisabled = !watchFields[0] || !watchFields[2];
+  const isDisabledReg = !watchFields[0] || !watchFields[1] || !watchFields[2];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -58,9 +63,23 @@ const AuthForm = () => {
         )}
       </>
 
-      <Button type="submit" variant="primary" loading={isPending}>
+      <Button
+        type="submit"
+        variant="primary"
+        loading={isPending}
+        disabled={isReq ? isDisabledReg : isDisabled}
+      >
         {isPending ? "Loading..." : isReq ? "Регистрация" : "Войти"}
       </Button>
+
+      <>
+        <div className={styles.social_auth}>
+          <div className={styles.social_header}>
+            {isReq ? "Регистрация через" : "Вход через"}
+          </div>
+          <Social />
+        </div>
+      </>
 
       <>
         <p className={styles.footer}>
