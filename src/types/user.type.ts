@@ -3,8 +3,13 @@ import { Role } from "@prisma/client";
 export type UserType = {
   id: string;
   name?: string;
-  email: string;
+  email?: string;
+  vkId?: number;
   isVerified: boolean;
+};
+export type UserVK = {
+  vkId: number;
+  name: string;
 };
 
 export type UserAuthForm = {
@@ -19,6 +24,5 @@ export type UserAuthResponse = {
 };
 export type DecodedToken = {
   userId: string;
-  email: string;
   role: Role;
 };

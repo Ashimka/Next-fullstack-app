@@ -3,14 +3,14 @@ import jwt from "jsonwebtoken";
 
 export const createTokens = (user: DecodedToken) => {
   const refreshToken = jwt.sign(
-    { userId: user.userId, email: user.email, role: user.role },
+    { userId: user.userId, role: user.role },
     process.env.JWT_SECRET as string,
     {
       expiresIn: "30d",
     }
   );
   const token = jwt.sign(
-    { userId: user.userId, email: user.email, role: user.role },
+    { userId: user.userId, role: user.role },
     process.env.JWT_SECRET as string,
     {
       expiresIn: "20m",

@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { setCookie } from "cookies-next/server";
 
 import prisma from "@/lib/prisma";
-import { verifyPassword } from "@/lib/service/auth";
-import { createTokens } from "@/lib/service/token.service";
+import { verifyPassword } from "@/lib/service/auth/auth";
+import { createTokens } from "@/lib/service/auth/token.service";
 
 export async function POST(req: Request) {
   try {
@@ -36,8 +36,7 @@ export async function POST(req: Request) {
     }
 
     const { token, refreshToken } = createTokens({
-      userId: user.id,
-      email: user.email,
+      userId: user.id,     
       role: user.role,
     });
 

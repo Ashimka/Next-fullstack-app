@@ -4,7 +4,7 @@ import { setCookie } from "cookies-next/server";
 import axios from "axios";
 
 import prisma from "@/lib/prisma";
-import { createTokens } from "@/lib/service/token.service";
+import { createTokens } from "@/lib/service/auth/token.service";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { TokenExpiredError } from "jsonwebtoken";
 
 import prisma from "@/lib/prisma";
-import { validateToken } from "@/lib/service/token.service";
+import { validateToken } from "@/lib/service/auth/token.service";
 
 export async function GET() {
   try {

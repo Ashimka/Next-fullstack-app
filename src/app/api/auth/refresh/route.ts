@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { getCookie } from "cookies-next/server";
-import { createTokens, validateToken } from "@/lib/service/token.service";
+import { createTokens, validateToken } from "@/lib/service/auth/token.service";
 
 export async function GET() {
   try {
