@@ -7,7 +7,7 @@ export type UserType = {
   vkId?: number;
   isVerified: boolean;
 };
-export type UserVK = {
+export type UserVkType = {
   vkId: number;
   name: string;
 };

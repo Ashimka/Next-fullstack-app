@@ -6,11 +6,14 @@ import { useAuthForm } from "@/hooks/useAuth";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 
+import { Eye, EyeOff } from "lucide-react";
+
 import styles from "./Auth.module.css";
 import Social from "./Social";
 
 const AuthForm = () => {
   const [isReq, setIsReq] = useState(false);
+  const [isOpenPass, setIsOpenPass] = useState(false);
   const { onSubmit, form, isPending, errorAuth } = useAuthForm(isReq);
   const { register, watch, handleSubmit } = form;
 
@@ -28,7 +31,7 @@ const AuthForm = () => {
           className="text-black w-full p-1 text-lg"
           type="email"
           id="email"
-          placeholder="email"
+          placeholder="email@mail.ru"
           {...register("email", { required: "Поле Email не заполнено" })}
         />
         {form.formState.errors.email && (
@@ -51,13 +54,23 @@ const AuthForm = () => {
       )}
 
       <>
-        <Input
-          className="text-black w-full p-1 text-lg"
-          type="password"
-          id="password"
-          placeholder="password"
-          {...register("password", { required: "Поле пароль не заполнено" })}
-        />
+        <div className={styles.password}>
+          <Input
+            className="text-black w-full p-1 text-lg"
+            type={isOpenPass ? "text" : "password"}
+            id="password"
+            placeholder="******"
+            {...register("password", { required: "Поле пароль не заполнено" })}
+          />
+          <div className={styles.icon}>
+            {isOpenPass ? (
+              <EyeOff onClick={() => setIsOpenPass(!isOpenPass)} />
+            ) : (
+              <Eye onClick={() => setIsOpenPass(!isOpenPass)} />
+            )}
+          </div>
+        </div>
+
         {form.formState.errors.password && (
           <p>{form.formState.errors.password.message}</p>
         )}
@@ -75,7 +88,7 @@ const AuthForm = () => {
       <>
         <div className={styles.social_auth}>
           <div className={styles.social_header}>
-            {isReq ? "Регистрация через" : "Вход через"}
+            {isReq ? "Регистрация через VK ID" : "Войти через VK ID"}
           </div>
           <Social />
         </div>
