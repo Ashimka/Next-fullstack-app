@@ -3,7 +3,7 @@
 }
 
 .header {
-  @apply flex justify-between;
+  @apply flex justify-between mb-8;
   > button {
     @apply px-2 py-1;
   }

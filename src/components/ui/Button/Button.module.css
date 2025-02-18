@@ -1,3 +1,3 @@
 .btn {
-  @apply px-5 py-2.5 border-none rounded-md text-lg;
+  @apply border-none rounded-md;
 }
