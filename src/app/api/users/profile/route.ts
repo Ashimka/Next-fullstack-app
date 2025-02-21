@@ -1,29 +1,18 @@
 import { NextResponse } from "next/server";
-import { getCookie } from "cookies-next/server";
-import { cookies } from "next/headers";
 import { TokenExpiredError } from "jsonwebtoken";
 
-import prisma from "@/lib/prisma";
-import { validateToken } from "@/lib/service/auth/token.service";
+import { getUserFromToken } from "@/lib/service/auth/token.service";
+import { createProfile, getUser } from "@/lib/service/profile/profile.service";
 
 export async function GET() {
   try {
-    const token = await getCookie("Token", { cookies });
+    const { userId } = await getUserFromToken();
 
-    if (!token) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    if (!userId) {
+      return NextResponse.json({ message: "jwt expired" }, { status: 401 });
     }
+    const user = await getUser(userId);
 
-    const isValidToken = validateToken(token);
-
-    const user = await prisma?.user.findUnique({
-      where: { id: isValidToken?.userId },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-      },
-    });
     return NextResponse.json(user);
   } catch (error) {
     if (error instanceof TokenExpiredError) {
@@ -32,6 +21,26 @@ export async function GET() {
         { status: 401 }
       );
     }
-    NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+}
+export async function POST(req: Request) {
+  try {
+    const { address, phone } = await req.json();
+    const { userId } = await getUserFromToken();
+    if (!address || !phone) {
+      return NextResponse.json({ error: "Нет данных" }, { status: 400 });
+    }
+
+    const profile = await createProfile({ userId, address, phone });
+
+    return NextResponse.json(profile);
+  } catch (err) {
+    console.log({ err });
+
+    return NextResponse.json(
+      { message: "Неудалось добавить данные" },
+      { status: 400 }
+    );
   }
 }

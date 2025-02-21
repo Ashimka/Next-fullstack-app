@@ -17,12 +17,14 @@ export default function UserInfo() {
           </p>
         )}
         <p>
-          <strong>Адрес доставки:</strong> {oneUser?.name}
+          <strong>Адрес доставки:</strong> {oneUser?.profile?.address}
+        </p>
+        <p>
+          <strong>Телефон:</strong> {oneUser?.profile?.phone}
         </p>
       </div>
       <Button variant="secondary">Редактировать профиль</Button>
-      {/* <button className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-      </button> */}
     </div>
   );
 }
+// */

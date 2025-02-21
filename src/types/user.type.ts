@@ -6,6 +6,13 @@ export type UserType = {
   email?: string;
   vkId?: number;
   isVerified: boolean;
+  profile: UserProfile;
+};
+
+export type UserProfile = {
+  userId: string;
+  address: string;
+  phone: string;
 };
 export type UserVkType = {
   vkId: number;
